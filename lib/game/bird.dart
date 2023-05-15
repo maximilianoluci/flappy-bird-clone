@@ -14,7 +14,7 @@ class Bird extends SpriteComponent
   @override
   Future<void> onLoad() async {
     final image = await Flame.images.load('bird.png');
-    size = Vector2(50, 40);
+
     position = Vector2(50, gameRef.size.y / 2 - size.y / 2);
     sprite = Sprite(image);
 
