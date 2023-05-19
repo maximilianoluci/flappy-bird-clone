@@ -23,8 +23,8 @@ class GameOver extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
-                game.restartGame();
                 game.overlays.remove('gameOver');
+                game.restartGame();
               },
               child: const Text(
                 'Restart',
