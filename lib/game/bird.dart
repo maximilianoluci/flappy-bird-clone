@@ -2,6 +2,7 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:flame/flame.dart';
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flappybirdclone/game/game.dart';
 import 'package:flutter/animation.dart';
 
@@ -46,9 +47,12 @@ class Bird extends SpriteComponent
   reset() {
     position = Vector2(50, gameRef.size.y / 2 - size.y / 2);
     gameRef.resumeEngine();
+    FlameAudio.bgm.play("bgm.mp3");
   }
 
   gameOver() {
+    FlameAudio.bgm.stop();
+    FlameAudio.play("gameover.wav");
     gameRef.overlays.add('gameOver');
     gameRef.pauseEngine();
   }

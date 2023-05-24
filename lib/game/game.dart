@@ -1,5 +1,6 @@
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flappybirdclone/game/background.dart';
 import 'package:flappybirdclone/game/bird.dart';
 import 'package:flappybirdclone/game/floor.dart';
@@ -14,6 +15,8 @@ class FlappyBirdGame extends FlameGame with TapDetector, HasCollisionDetection {
 
   @override
   Future<void> onLoad() async {
+    FlameAudio.bgm.play("bgm.mp3");
+
     addAll([
       Background(),
       Floor(),
@@ -30,6 +33,7 @@ class FlappyBirdGame extends FlameGame with TapDetector, HasCollisionDetection {
   void onTap() {
     super.onTap();
     _bird.fly();
+    FlameAudio.play("jump.wav");
   }
 
   @override
