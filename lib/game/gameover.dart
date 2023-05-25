@@ -18,7 +18,7 @@ class GameOver extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             const Text(
-              'Game Over!',
+              'You crashed!',
               style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
             ),
             TextButton(
@@ -27,7 +27,7 @@ class GameOver extends StatelessWidget {
                 game.restartGame();
               },
               child: const Text(
-                'Restart',
+                'Continue',
                 style: TextStyle(
                   fontSize: 20,
                 ),
