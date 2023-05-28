@@ -17,6 +17,7 @@ class FlappyBirdGame extends FlameGame with TapDetector, HasCollisionDetection {
   int counter = -1;
   var _currentPipeGroup;
   var _nextPipeGroup;
+  int _scrollCounter = 0;
 
   @override
   Future<void> onLoad() async {
@@ -37,6 +38,7 @@ class FlappyBirdGame extends FlameGame with TapDetector, HasCollisionDetection {
     _bird.reset();
     _currentPipeGroup.removeFromParent();
     _currentPipeGroup = null;
+    _scrollCounter = 0;
     counter = 0;
   }
 
@@ -51,18 +53,21 @@ class FlappyBirdGame extends FlameGame with TapDetector, HasCollisionDetection {
   void update(double dt) {
     super.update(dt);
     _timeSinceLastPipeGroup += dt;
+    _scrollCounter++;
+
+    if (_scrollCounter >= 5 &&
+        _scrollCounter < 6 &&
+        _currentPipeGroup != null) {
+      counter++;
+    }
 
     if (_timeSinceLastPipeGroup > 1.7) {
       _nextPipeGroup = PipeGroup();
       add(_nextPipeGroup);
       _timeSinceLastPipeGroup = 0;
+      _scrollCounter = 0;
     }
 
-    if (_timeSinceLastPipeGroup > 0.71 &&
-        _timeSinceLastPipeGroup < 0.72 &&
-        _currentPipeGroup != null) {
-      counter++;
-    }
     if (_nextPipeGroup != null && _timeSinceLastPipeGroup > 1) {
       _currentPipeGroup = _nextPipeGroup;
     }
