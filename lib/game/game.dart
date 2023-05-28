@@ -12,21 +12,26 @@ class FlappyBirdGame extends FlameGame with TapDetector, HasCollisionDetection {
   double speed = 200;
   late Bird _bird;
   double _timeSinceLastPipeGroup = 0;
+  late PipeGroup _currentPipeGroup;
+  var _nextPipeGroup;
 
   @override
   Future<void> onLoad() async {
     FlameAudio.bgm.play("bgm.mp3");
 
+    _currentPipeGroup = PipeGroup();
+
     addAll([
       Background(),
       Floor(),
       _bird = Bird(),
-      PipeGroup(),
+      _currentPipeGroup,
     ]);
   }
 
   restartGame() {
     _bird.reset();
+    _currentPipeGroup.removeFromParent();
   }
 
   @override
@@ -42,8 +47,13 @@ class FlappyBirdGame extends FlameGame with TapDetector, HasCollisionDetection {
     _timeSinceLastPipeGroup += dt;
 
     if (_timeSinceLastPipeGroup > 1.7) {
-      add(PipeGroup());
+      _nextPipeGroup = PipeGroup();
+      add(_nextPipeGroup);
       _timeSinceLastPipeGroup = 0;
+    }
+
+    if (_nextPipeGroup != null && _timeSinceLastPipeGroup > 1) {
+      _currentPipeGroup = _nextPipeGroup;
     }
   }
 }
